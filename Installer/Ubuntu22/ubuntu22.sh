@@ -19,7 +19,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/AndronixApp/AndronixOrigin/raw/master/Rootfs/Ubuntu22/jammy-${archurl}.tar.gz" -O $tarball
+		wget "https://github.com/devopsexpertlearning/andronixorigin/raw/master/Rootfs/Ubuntu22/jammy-${archurl}.tar.gz" -O $tarball
 	fi
 	
 	mkdir -p "$folder"
