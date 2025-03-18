@@ -229,7 +229,7 @@ chmod +x $bin
 echo "removing image for some space"
 rm $tarball
 
-echo "#!/bin/bash
+echo "#!/bin/bash"
 apt update -y
 apt install nano apt-utils -y
 apt install software-properties-common -y
