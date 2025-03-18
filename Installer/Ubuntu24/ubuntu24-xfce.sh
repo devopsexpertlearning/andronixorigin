@@ -247,7 +247,7 @@ apt install libpciaccess0 libegl1-mesa -y
 apt install tigervnc-standalone-server tigervnc-common tigervnc-tools -y --no-install-recommends
 apt install xfce4 xfce4-goodies dbus-x11 -y --no-install-recommends
 apt install ca-certificates libcurl4 libgbm1 libnspr4 libnss3 xdg-utils -y --no-install-recommends
-
+apt install systemctl -y
 echo "Ubuntu 24 with XFCE setup is complete!"
 exit
 EOM
