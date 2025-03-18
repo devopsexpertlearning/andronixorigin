@@ -234,22 +234,34 @@ rm $tarball
 echo "Installing XFCE Desktop .."
 
 bash $bin <<EOM
+echo "writing script.. "
+cat > install.sh <<EOM
+#!/bin/bash
+set -e  # Exit script on any error
+
+echo "Updating package lists..."
 apt update -y
-apt install systemctl -y
-apt install nano apt-utils -y
-apt install software-properties-common -y
-add-apt-repository ppa:mozillateam/ppa
+apt upgrade -y
+
+echo "Installing necessary packages..."
+apt install -y nano apt-utils software-properties-common
+
+echo "Adding Mozilla Team PPA..."
+add-apt-repository -y ppa:mozillateam/ppa
 apt update -y
-echo 'Package: firefox*  
-Pin: release o=Ubuntu*  
-Pin-Priority: -1' | tee /etc/apt/preferences.d/mozilla-firefox
+
+echo "Installing XFCE and VNC Server..."
+apt install -y --no-install-recommends xfce4 xfce4-goodies dbus-x11
+apt install -y --no-install-recommends tigervnc-standalone-server tigervnc-common tigervnc-tools
+
+echo "Installing additional utilities..."
+apt install -y --no-install-recommends ca-certificates xdg-utils
+
+echo "Installing firefox"
 apt install firefox -y
-apt install libpciaccess0 libegl1-mesa -y
-apt install tigervnc-standalone-server tigervnc-common tigervnc-tools -y
-apt install xfce4 xfce4-goodies dbus-x11 -y
-apt install ca-certificates libcurl4 libgbm1 libnspr4 libnss3 xdg-utils -y
+
 echo "Ubuntu 24 with XFCE setup is complete!"
-exit
+EOM
 EOM
 
 echo "You can now launch Ubuntu with ./${bin}"
