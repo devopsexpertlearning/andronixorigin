@@ -119,3 +119,8 @@ That doesn't mean that we don't love open-source, **we** 💘 **open-source**. I
 
 
 # Ubuntu base repo URL: https://cdimage.ubuntu.com/ubuntu-base/
+
+
+# Install ubuntu desktop on Termux
+
+pkg update -y && pkg install wget curl proot tar -y && wget https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/Installer/Ubuntu24/ubuntu24-xfce.sh -O ubuntu24-xfce.sh && chmod +x ubuntu24-xfce.sh && bash ubuntu24-xfce.sh
