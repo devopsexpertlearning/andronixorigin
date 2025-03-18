@@ -228,11 +228,8 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-
 #Installing XFCE desktop
-
 echo "Installing XFCE Desktop .."
-
 bash $bin <<EOM
 echo "writing script.. "
 cat > install.sh << 'EOF'
