@@ -228,10 +228,6 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-clear
-echo "You can now launch Ubuntu with the ./${bin} script from next time"
-bash $bin
-
 apt update
 apt install nano apt-utils -y
 apt install software-properties-common -y
@@ -245,3 +241,6 @@ apt install libpciaccess0 libegl1-mesa -y
 apt install tigervnc-standalone-server tigervnc-common --no-install-recommends tigervnc-tools -y
 apt install xfce4 xfce4-goodies dbus-x11 --no-install-recommends -y
 apt install ca-certificates libcurl4 libgbm1 libnspr4 libnss3 xdg-utils --no-install-recommends -y
+clear
+echo "You can now launch Ubuntu with the ./${bin} script from next time"
+bash $bin
