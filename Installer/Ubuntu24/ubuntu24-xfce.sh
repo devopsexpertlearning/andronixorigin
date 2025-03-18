@@ -235,7 +235,7 @@ echo "Installing XFCE Desktop .."
 
 bash $bin <<EOM
 echo "writing script.. "
-cat > install.sh <<EOM
+cat > install.sh << 'EOF'
 #!/bin/bash
 set -e  # Exit script on any error
 
@@ -257,11 +257,11 @@ apt install -y --no-install-recommends tigervnc-standalone-server tigervnc-commo
 echo "Installing additional utilities..."
 apt install -y --no-install-recommends ca-certificates xdg-utils
 
-echo "Installing firefox"
+echo "Installing Firefox..."
 apt install firefox -y
 
 echo "Ubuntu 24 with XFCE setup is complete!"
-EOM
+EOF
 EOM
 
 echo "You can now launch Ubuntu with ./${bin}"
