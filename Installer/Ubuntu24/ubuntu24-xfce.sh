@@ -262,6 +262,8 @@ apt install firefox -y
 
 echo "Ubuntu 24 with XFCE setup is complete!"
 EOF
+chmid +x install.sh
+./install.sh
 EOM
 
 echo "You can now launch Ubuntu with ./${bin}"
