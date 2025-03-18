@@ -228,11 +228,13 @@ echo "making $bin executable"
 chmod +x $bin
 echo "removing image for some space"
 rm $tarball
-apt update
+
+echo "#!/bin/bash
+apt update -y
 apt install nano apt-utils -y
 apt install software-properties-common -y
 add-apt-repository ppa:mozillateam/ppa
-apt update
+apt update -y
 echo 'Package: firefox*  
 Pin: release o=Ubuntu*  
 Pin-Priority: -1' | tee /etc/apt/preferences.d/mozilla-firefox
@@ -241,6 +243,5 @@ apt install libpciaccess0 libegl1-mesa -y
 apt install tigervnc-standalone-server tigervnc-common --no-install-recommends tigervnc-tools -y
 apt install xfce4 xfce4-goodies dbus-x11 --no-install-recommends -y
 apt install ca-certificates libcurl4 libgbm1 libnspr4 libnss3 xdg-utils --no-install-recommends -y
-clear
 echo "You can now launch Ubuntu with the ./${bin} script from next time"
 bash $bin
