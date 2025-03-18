@@ -248,6 +248,9 @@ apt install -y nano apt-utils software-properties-common
 
 echo "Adding Mozilla Team PPA..."
 add-apt-repository -y ppa:mozillateam/ppa
+echo 'Package: firefox* 
+Pin: release o=Ubuntu* 
+Pin-Priority: -1' | tee /etc/apt/preferences.d/mozilla-firefox    
 apt update -y
 
 echo "Installing XFCE and VNC Server..."
@@ -255,7 +258,7 @@ apt install -y --no-install-recommends xfce4 xfce4-goodies dbus-x11
 apt install -y --no-install-recommends tigervnc-standalone-server tigervnc-common tigervnc-tools
 
 echo "Installing additional utilities..."
-apt install -y --no-install-recommends ca-certificates xdg-utils
+#apt install -y --no-install-recommends ca-certificates xdg-utils
 
 echo "Installing Firefox..."
 apt install firefox -y
@@ -263,7 +266,6 @@ apt install firefox -y
 echo "Ubuntu 24 with XFCE setup is complete!"
 EOF
 chmod +x install.sh
-./install.sh
 EOM
 
 echo "You can now launch Ubuntu with ./${bin}"
