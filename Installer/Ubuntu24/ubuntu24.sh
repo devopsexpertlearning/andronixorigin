@@ -1,12 +1,12 @@
 #!/data/data/com.termux/files/usr/bin/bash
 pkg install wget -y 
-folder=ubuntu22-fs
+folder=ubuntu24-fs
 cur=`pwd`
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
 fi
-tarball="ubuntu22-rootfs.tar.gz"
+tarball="ubuntu24-rootfs.tar.gz"
 
 termux-setup-storage
 
@@ -19,7 +19,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/devopsexpertlearning/andronixorigin/raw/master/Rootfs/Ubuntu24/jammy-${archurl}.tar.gz" -O $tarball
+		wget "https://github.com/devopsexpertlearning/andronixorigin/raw/master/Rootfs/Ubuntu24/noble-${archurl}.tar.gz" -O $tarball
 	fi
 	
 	mkdir -p "$folder"
@@ -29,7 +29,7 @@ if [ "$first" != 1 ];then
 	cd "$cur"
 fi
 
-mkdir -p ubuntu22-binds
+mkdir -p ubuntu24-binds
 mkdir -p ${folder}/proc/fakethings
 
 if [ ! -f "${cur}/${folder}/proc/fakethings/stat" ]; then
@@ -168,7 +168,7 @@ if [ ! -f "${cur}/${folder}/proc/fakethings/vmstat" ]; then
 	EOF
 fi
 
-bin=start-ubuntu22.sh
+bin=start-ubuntu24.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -180,8 +180,8 @@ command+=" --kill-on-exit"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A ubuntu22-binds)" ]; then
-    for f in ubuntu22-binds/* ;do
+if [ -n "\$(ls -A ubuntu24-binds)" ]; then
+    for f in ubuntu24-binds/* ;do
       . \$f
     done
 fi
@@ -189,7 +189,7 @@ command+=" -b /dev"
 command+=" -b /proc"
 command+=" -b /sys"
 command+=" -b /data"
-command+=" -b ubuntu22-fs/root:/dev/shm"
+command+=" -b ubuntu24-fs/root:/dev/shm"
 command+=" -b /proc/self/fd/2:/dev/stderr"
 command+=" -b /proc/self/fd/1:/dev/stdout"
 command+=" -b /proc/self/fd/0:/dev/stdin"
@@ -217,7 +217,7 @@ else
 fi
 EOM
 
-chmod +x ubuntu22-fs/root/.bash_profile
+chmod +x ubuntu24-fs/root/.bash_profile
 touch $folder/root/.hushlogin
 echo "127.0.0.1 localhost localhost" > $folder/etc/hosts
 echo "nameserver 1.1.1.1" > $folder/etc/resolv.conf

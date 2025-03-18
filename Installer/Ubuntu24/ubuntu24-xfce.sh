@@ -2,7 +2,7 @@
 pkg install wget -y 
 folder=ubuntu24-fs
 cur=`pwd`
-dlink="https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/APT"
+dlink="https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/APT"
 if [ -d "$folder" ]; then
 	first=1
 	echo "skipping downloading"
@@ -20,7 +20,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://github.com/AndronixApp/AndronixOrigin/raw/master/Rootfs/Ubuntu24/jammy-${archurl}.tar.gz" -O $tarball
+		wget "https://github.com/devopsexpertlearning/andronixorigin/raw/master/Rootfs/Ubuntu24/jammy-${archurl}.tar.gz" -O $tarball
 
 fi
 	mkdir -p "$folder"
@@ -30,7 +30,7 @@ fi
 	cd "$cur"
 fi
 
-mkdir -p ubuntu22-binds
+mkdir -p ubuntu24-binds
 mkdir -p ${folder}/proc/fakethings
 
 if [ ! -f "${cur}/${folder}/proc/fakethings/stat" ]; then
@@ -169,7 +169,7 @@ if [ ! -f "${cur}/${folder}/proc/fakethings/vmstat" ]; then
 	EOF
 fi
 
-bin=start-ubuntu22.sh
+bin=start-ubuntu24.sh
 echo "writing launch script"
 cat > $bin <<- EOM
 #!/bin/bash
@@ -181,8 +181,8 @@ command+=" --kill-on-exit"
 command+=" --link2symlink"
 command+=" -0"
 command+=" -r $folder"
-if [ -n "\$(ls -A ubuntu22-binds)" ]; then
-    for f in ubuntu22-binds/* ;do
+if [ -n "\$(ls -A ubuntu24-binds)" ]; then
+    for f in ubuntu24-binds/* ;do
       . \$f
     done
 fi
@@ -190,7 +190,7 @@ command+=" -b /dev"
 command+=" -b /proc"
 command+=" -b /sys"
 command+=" -b /data"
-command+=" -b ubuntu22-fs/root:/dev/shm"
+command+=" -b ubuntu24-fs/root:/dev/shm"
 command+=" -b /proc/self/fd/2:/dev/stderr"
 command+=" -b /proc/self/fd/1:/dev/stdout"
 command+=" -b /proc/self/fd/0:/dev/stdin"
@@ -218,18 +218,18 @@ else
 fi
 EOM
 
-mkdir -p ubuntu22-fs/var/tmp
-rm -rf ubuntu22-fs/usr/local/bin/*
+mkdir -p ubuntu24-fs/var/tmp
+rm -rf ubuntu24-fs/usr/local/bin/*
 echo "127.0.0.1 localhost localhost" > $folder/etc/hosts
-wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vnc -P ubuntu22-fs/usr/local/bin > /dev/null
-wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncpasswd -P ubuntu22-fs/usr/local/bin > /dev/null
-wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncserver-stop -P ubuntu22-fs/usr/local/bin > /dev/null
-wget -q https://raw.githubusercontent.com/AndronixApp/AndronixOrigin/master/Rootfs/Ubuntu19/vncserver-start -P ubuntu22-fs/usr/local/bin > /dev/null
+wget -q https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/Rootfs/Ubuntu19/vnc -P ubuntu24-fs/usr/local/bin > /dev/null
+wget -q https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/Rootfs/Ubuntu19/vncpasswd -P ubuntu24-fs/usr/local/bin > /dev/null
+wget -q https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/Rootfs/Ubuntu19/vncserver-stop -P ubuntu24-fs/usr/local/bin > /dev/null
+wget -q https://raw.githubusercontent.com/devopsexpertlearning/andronixorigin/master/Rootfs/Ubuntu19/vncserver-start -P ubuntu24-fs/usr/local/bin > /dev/null
 
-chmod +x ubuntu22-fs/usr/local/bin/vnc
-chmod +x ubuntu22-fs/usr/local/bin/vncpasswd
-chmod +x ubuntu22-fs/usr/local/bin/vncserver-start
-chmod +x ubuntu22-fs/usr/local/bin/vncserver-stop
+chmod +x ubuntu24-fs/usr/local/bin/vnc
+chmod +x ubuntu24-fs/usr/local/bin/vncpasswd
+chmod +x ubuntu24-fs/usr/local/bin/vncserver-start
+chmod +x ubuntu24-fs/usr/local/bin/vncserver-stop
 
 echo "fixing shebang of $bin"
 termux-fix-shebang $bin
